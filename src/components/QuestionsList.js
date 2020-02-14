@@ -14,17 +14,27 @@ class QuestionsList extends React.Component {
     }
   }
 
+  questionSelected(question) {
+    console.log(question)
+  }
+
   renderCards() {
     const questionsArray = this.props.questionsByCategory;
     var cards = [];
 
     for (let i = 0; i < questionsArray.length; i++) {
       questionsArray[i].questionsByCategory.map(question => {
-        cards.push(<TriviaCard key={question.question} question={question} />)
+        cards.push(
+          <TriviaCard
+            className="hello"
+            key={question.question}
+            question={question}
+            onClick={this.questionSelected.bind(this)}
+            />
+        )
         return cards
       })
     }
-
     return cards
   }
 
@@ -37,7 +47,7 @@ class QuestionsList extends React.Component {
       content = this.renderCards();
     }
     return(
-      <Grid container spacing={2} id="grid container div" style={{ flexGrow: 1 }}>
+      <Grid container spacing={2} style={{ flexGrow: 1 }}>
         { content }
       </Grid>
     )
