@@ -1,15 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
 
-import { fetchCategories } from '../actions';
+import { fetchCategories, receiveQuestions } from '../actions';
 import CheckboxList from './common/CheckboxList';
 
 class CategoryList extends React.Component {
@@ -17,16 +9,23 @@ class CategoryList extends React.Component {
     this.props.fetchCategories();
   }
 
+  onQuestionsSelected(id, name) {
+    this.props.receiveQuestions(id, name)
+  }
+
   renderList() {
     return (
-      <CheckboxList categories={this.props.categories} />
+      <CheckboxList
+        categories={this.props.categories}
+        onQuestionsSelected={this.onQuestionsSelected.bind(this)}
+        />
     )
-}
-
+  }
 
   render() {
     var content = []
-    if (typeof this.props.categories !== 'undefined' ) {
+
+    if (typeof this.props.categories !== 'undefined') {
       content = this.renderList();
     }
 
@@ -34,6 +33,7 @@ class CategoryList extends React.Component {
       <div>
         <h1>Trivia with React-Redux</h1>
         <div>
+          <p>Please select 4 categories</p>
           {content}
         </div>
       </div>
@@ -46,5 +46,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,
-  { fetchCategories }
+  { fetchCategories, receiveQuestions }
 )(CategoryList)
