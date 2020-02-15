@@ -4,9 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles({
   title: {
@@ -19,17 +17,9 @@ const useStyles = makeStyles({
     width: '20%',
     margin: '0 0 0 0',
   },
-  cardButton: {
-
-  },
 })
 
 const TriviaCard = (props) => {
-
-  const handleSelect = (question) => {
-    console.log(question)
-  }
-
   const classes = useStyles();
 
   const renderCard = () => {

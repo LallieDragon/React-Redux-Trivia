@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
-import { fetchQuestions } from '../actions';
+import { fetchQuestions, storeSelectedQuestion } from '../actions';
 import TriviaCard from './common/TriviaCard';
 
 class QuestionsList extends React.Component {
@@ -14,8 +14,17 @@ class QuestionsList extends React.Component {
     }
   }
 
+
   questionSelected(question) {
-    console.log(question)
+    var allAnswers = [];
+
+    for (let i = 0; i < question.incorrect_answers.length; i++) {
+      allAnswers.push(question.incorrect_answers[i])
+    }
+    allAnswers.push(question.correct_answer);
+    allAnswers.sort(() => Math.random() - 0.5);
+
+    this.props.storeSelectedQuestion(question, allAnswers);
   }
 
   renderCards() {
@@ -26,7 +35,6 @@ class QuestionsList extends React.Component {
       questionsArray[i].questionsByCategory.map(question => {
         cards.push(
           <TriviaCard
-            className="hello"
             key={question.question}
             question={question}
             onClick={this.questionSelected.bind(this)}
@@ -62,5 +70,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,
-  { fetchQuestions }
+  { fetchQuestions, storeSelectedQuestion }
 )(QuestionsList)

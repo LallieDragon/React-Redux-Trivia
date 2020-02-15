@@ -17,3 +17,9 @@ export const fetchQuestions = (id) => async dispatch => {
 
   dispatch({ type: 'FETCH_QUESTIONS', payload: response.data.results })
 }
+
+export const storeSelectedQuestion = (question, allAnswers) => ({
+  type: "STORE_QUESTION",
+  question: question,
+  allAnswers: allAnswers
+})

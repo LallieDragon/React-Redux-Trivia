@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CategoryList from './CategoryList';
 import QuestionsList from './QuestionsList';
+import AnswersList from './AnswersList';
 
 class App extends React.Component {
   render() {
@@ -9,17 +10,23 @@ class App extends React.Component {
 
     if (this.props.categories.length === 0 || this.props.categoriesSelected.length < 4 ) {
       pageContent = (
-          <CategoryList />
+        <CategoryList />
       )
     } else {
-      pageContent = (
-        <QuestionsList />
-      )
+      if (this.props.selectedQuestion.length < 1) {
+        pageContent = (
+          <QuestionsList />
+        )
+      } else {
+        pageContent = (
+          <AnswersList />
+        )
+      }
     }
 
     return(
       <div>
-        {pageContent}
+        { pageContent }
       </div>
     )
   }
